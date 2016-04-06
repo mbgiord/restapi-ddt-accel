@@ -44,26 +44,28 @@ The following steps were taken to develop this accelerator.
 For this example we used GitHub API v3.
 
 3. **Design Tests in SOAPUI.**  
+
   Generally speaking, the following design decisions were made:  
 
-   1) **Project Level** - Define the enviroment via variable "ENV".  Used to drive service endpoint and loading of appropriate data file.  
+   * **Project Level** - Define the enviroment via variable "ENV".  Used to drive service endpoint and loading of appropriate data file.  
    
-   2) **Test Suite Level** - Nothing of note.  
+   * **Test Suite Level** - Nothing of note.  
    
-   3) **Test Case Level** - Define API request/response related properties.  For example, "USERID", "USERNAME" and "REPOID".  
+   * **Test Case Level** - Define API request/response related properties.  For example, "USERID", "USERNAME" and "REPOID".  
    
-   4) **Test Step Level** - Model API requests based on requirements.  All API calls are orchestrated via a groovy script.  
+   * **Test Step Level** - Model API requests based on requirements.  All API calls are orchestrated via a groovy script.  
 
-    Specifically for this accelerator, the following API calls logic were modeled.  For each row in the datafile...
-   1) **GET /users/{userId} (200)** - Get the user based on "USERID" (column #1 in datafile).
-       1) Verify HTTP Status Code = 200
-       2) Assert name in JSON response = "USERNAME" (column #2 in datafile).
+  Specifically for this accelerator, the following API calls logic were modeled.  For each row in the datafile...  
+  
+   * **GET /users/{userId} (200)** - Get the user based on "USERID" (column #1 in datafile).
+      * Verify HTTP Status Code = 200
+      * Assert name in JSON response = "USERNAME" (column #2 in datafile).
        
-   2) **GET /users/{userId}/repos (200)** - Get list of repos owned by the user.
-       1) Verify HTTP Status Code = 200
+   * **GET /users/{userId}/repos (200)** - Get list of repos owned by the user.
+      * Verify HTTP Status Code = 200
        
-   3) **GET /repos/{ownerId}/{repoId} (200)** - Get each individual repo owned by the user.
-       1) Verify HTTP Status Code = 200
+   * **GET /repos/{ownerId}/{repoId} (200)** - Get each individual repo owned by the user.
+      * Verify HTTP Status Code = 200
 
 4. **Configure Maven commandline interface.**  
 See the pom.xml for additional details.
