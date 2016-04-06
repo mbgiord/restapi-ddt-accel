@@ -39,29 +39,38 @@ This accelerator was built and verified with the following technologies.
 The following steps were taken to develop this accelerator.
 
 1. **Install SOAPUI and Maven.**
+
 2. **Import API specification into SOAPUI via RAML.**  
 For this example we used GitHub API v3.
+
 3. **Design Tests in SOAPUI.**  
-  Generally speaking, the following design decisions were made:
+  Generally speaking, the following design decisions were made:  
+
    1) **Project Level** - Define the enviroment via variable "ENV".  Used to drive service endpoint and loading of appropriate data file.  
-   1) **Test Suite Level** - Nothing of note.  
-   1) **Test Case Level** - Define API request/response related properties.  For example, "USERID", "USERNAME" and "REPOID".  
-   1) **Test Step Level** - Model API requests based on requirements.  All API calls are orchestrated via a groovy script.  
+   
+   2) **Test Suite Level** - Nothing of note.  
+   
+   3) **Test Case Level** - Define API request/response related properties.  For example, "USERID", "USERNAME" and "REPOID".  
+   
+   4) **Test Step Level** - Model API requests based on requirements.  All API calls are orchestrated via a groovy script.  
 
     Specifically for this accelerator, the following API calls logic were modeled.  For each row in the datafile...
    1) **GET /users/{userId} (200)** - Get the user based on "USERID" (column #1 in datafile).
        1) Verify HTTP Status Code = 200
-       1) Assert name in JSON response = "USERNAME" (column #2 in datafile).
-   1) **GET /users/{userId}/repos (200)** - Get list of repos owned by the user.
+       2) Assert name in JSON response = "USERNAME" (column #2 in datafile).
+       
+   2) **GET /users/{userId}/repos (200)** - Get list of repos owned by the user.
        1) Verify HTTP Status Code = 200
-   1) **GET /repos/{ownerId}/{repoId} (200)** - Get each individual repo owned by the user.
+       
+   3) **GET /repos/{ownerId}/{repoId} (200)** - Get each individual repo owned by the user.
        1) Verify HTTP Status Code = 200
 
 4. **Configure Maven commandline interface.**  
 See the pom.xml for additional details.
 
 ## Running
-From the commandline, run **"mvn test"**.  This will run the default "prod" maven profile.  
+From the commandline, run **"mvn test"**.  This will run the default "prod" maven profile. 
+
 You should see the following output:
 
 >    
@@ -95,5 +104,7 @@ You should see the following output:
 
 ## Next Steps
 The intent of this accelerator is to be a starting point.  It can be demod as-is, extended or parted out for pieces.  
+
 Ideally it's included within the [build lifecycle](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html) of your project for integration testing.  
+
 The world is your oyster.  
