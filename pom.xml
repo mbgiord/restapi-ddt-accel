@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.liquidhub</groupId>
+	<artifactId>lh-restapi-test-accel</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<soapui.version>5.2.1</soapui.version>
+	</properties>
+
+	<pluginRepositories>
+		<!-- SOAP UI Repository. -->
+		<pluginRepository>
+			<id>smartbear-sweden-plugin-repository</id>
+			<url>http://www.soapui.org/repository/maven2/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<profiles>
+		<profile>
+			<id>prod</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.smartbear.soapui</groupId>
+						<artifactId>soapui-maven-plugin</artifactId>
+						<version>${soapui.version}</version>
+						<configuration>
+							<outputFolder>${basedir}/target/soapui</outputFolder>
+							<junitReport>true</junitReport>
+							<printReport>true</printReport>
+						</configuration>
+						<executions>
+							<execution>
+								<id>GITHUB_PROD_REGRESSION_TEST</id>
+								<phase>test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<projectFile>src${file.separator}test${file.separator}soapui${file.separator}github-soapui-project.xml</projectFile>
+									<testSuite>Automated Regression Test Suite</testSuite>
+									<projectProperties>
+										<value>ENV=prod</value>
+									</projectProperties>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.smartbear.soapui</groupId>
+						<artifactId>soapui-maven-plugin</artifactId>
+						<version>${soapui.version}</version>
+						<configuration>
+							<outputFolder>${basedir}/target/soapui</outputFolder>
+							<junitReport>true</junitReport>
+							<printReport>true</printReport>
+						</configuration>
+						<executions>
+							<execution>
+								<id>GITHUB_DEV_REGRESSION_TEST</id>
+								<phase>test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<projectFile>src${file.separator}test${file.separator}soapui${file.separator}github-soapui-project.xml</projectFile>
+									<testSuite>Automated Regression Test Suite</testSuite>
+									<projectProperties>
+										<value>ENV=dev</value>
+									</projectProperties>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
